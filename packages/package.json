@@ -5,6 +5,7 @@
   "type": "module",
   "author": {"name": "Isaac Poole"},
   "scripts": {
+    "dev": "tsdown --watch --sourcemap",
     "build": "tsdown"
   },
   "exports": {
