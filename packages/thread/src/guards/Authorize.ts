@@ -1,5 +1,5 @@
 import type { Context } from "hono";
-import { MethodDecoratorFactory } from "./types";
+import { MethodDecoratorFactory } from "thread";
 import { GuardDecorator } from "./GuardDecorator";
 
 /** Contract for a guard that rejects unauthorized requests by throwing. */

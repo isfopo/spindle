@@ -1,4 +1,4 @@
-import { MethodDecoratorFactory } from "./types";
+import { MethodDecoratorFactory } from "thread";
 import { GuardDecorator } from "./GuardDecorator";
 
 /** Result returned by a request object's validate() method. */

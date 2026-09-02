@@ -12,4 +12,3 @@
 // @cloudflare/workers-types. Consumers should import D1Database directly
 // from the Cloudflare types package.
 
-export type { D1Database } from "@cloudflare/workers-types";

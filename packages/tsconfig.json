@@ -11,5 +11,5 @@
     "lib": ["ESNext", "DOM"],
     "paths": {"*": ["../packages/*"]}
   },
-  "include": ["*/src/**/*", "*/plugins/**/*"],
+  "include": ["./**/*.ts", "./**/*.tsx"],
 }
