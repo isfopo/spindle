@@ -1,5 +1,5 @@
 {
-  "name": "tenet",
+  "name": "@spindle/tenet",
   "type": "module",
   "scripts": {
     "dev": "vite --host",
@@ -15,6 +15,5 @@
     "hono": "^4.12.16"
   },
   "devDependencies": {
-    "@spindle": "0.0.0"
   }
 }

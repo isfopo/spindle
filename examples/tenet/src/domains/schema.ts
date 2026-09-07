@@ -5,9 +5,9 @@
  *   - model interfaces (src/domains/db-types.d.ts)
  *   - a derived schema.sql (for tooling / manual wrangler d1 execute)
  *   - a runtime schema module consumed by applySchema() to reconcile the
- *     live D1 DB against this desired state (initialise or update in place).
+ *     live D1 DB against this desired state (initialize or update in place).
  */
-import { defineSchema, table, index, col } from "js-mvc/schema";
+import { defineSchema, table, index, col } from "@spindle/spindle";
 
 export const schema = defineSchema({
   tables: {

@@ -10,6 +10,9 @@ export type * from "./table";
 export * from "./column";
 export type * from "./column";
 
+export * from "./ddl"
+export type * from "./ddl"
+
 // Generators (build-time / tooling).
 export * from "./generate-sql";
 export * from "./generate-types";

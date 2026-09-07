@@ -1,9 +1,9 @@
 {
-  "name": "spindle",
+  "name": "@spindle/spindle",
   "version": "0.0.0",
-  "private": true,
+  "private": false,
   "type": "module",
-  "author": {"name": "Isaac Poole"},
+  "author": {"name": "Isaac Poole", "email": "isaacpoolemusic@gmail.com" },
   "scripts": {
     "dev": "tsdown --watch --sourcemap",
     "build": "tsdown"
@@ -13,8 +13,10 @@
     "./thread": "./src/thread/index.ts",
     "./fabric": "./src/fabric/index.ts"
   },
-  "dependencies": {
-    "hono": "^4.12.16"
+  "peerDependencies": {
+    "hono": "^4.12.16",
+    "wrangler": "^4.90.0",
+    "vite": "^6.4.2"
   },
   "devDependencies": {
     "@cloudflare/vite-plugin": "^1.35.0",

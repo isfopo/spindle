@@ -1,5 +1,3 @@
-import { resolve } from "node:path";
-import { fileURLToPath } from "node:url";
 import { cloudflareTest } from "@cloudflare/vitest-pool-workers";
 import { defineConfig } from "vitest/config";
 import {
@@ -8,23 +6,7 @@ import {
   sqlPlugin,
 } from "../../package/plugins/index.ts";
 
-const __dirname = fileURLToPath(new URL(".", import.meta.url));
-const src = resolve(__dirname, "src");
-const pkg = resolve(__dirname, "package", "src");
-
 export default defineConfig({
-  resolve: {
-    alias: {
-      api: resolve(src, "api"),
-      domains: resolve(src, "domains"),
-      db: resolve(src, "db"),
-      "error-handler": resolve(src, "error-handler.tsx"),
-      "js-mvc": pkg,
-      middleware: resolve(src, "middleware"),
-      utils: resolve(src, "utils"),
-      views: resolve(src, "views"),
-    },
-  },
   esbuild: {
     jsx: "automatic",
     jsxImportSource: "hono/jsx",

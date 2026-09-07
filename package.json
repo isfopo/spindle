@@ -1,9 +1,14 @@
 {
+  "name": "spindle",
   "private": true,
   "workspaces": [
-    "packages"
+    "packages",
+    "examples/*"
   ],
-  "scripts": {},
+  "scripts": {
+    "link": "npm link",
+    "nuke": "(dir 2>&1 *`|echo CMD);&<# rem #>echo PowerShell"
+  },
   "allowScripts": {
     "sharp@0.34.5": true,
     "workerd@1.20260625.1": true,
