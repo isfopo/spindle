@@ -1,4 +1,4 @@
-import { RepositoryBase } from "js-mvc/repository/RepositoryBase";
+import { RepositoryBase } from "@spindle/spindle/thread";
 import type { VoteRow, VoteChoice } from "./model";
 import { procs, type ProcMap } from "./procs.generated";
 
@@ -42,3 +42,4 @@ export class VotesRepository extends RepositoryBase<VoteRow, ProcMap> {
 
 /** Factory function to create a VotesRepository with a database connection. */
 export const votesRepo = (db: D1Database) => new VotesRepository(db);
+

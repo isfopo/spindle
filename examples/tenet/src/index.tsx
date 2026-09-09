@@ -1,13 +1,13 @@
 import { Hono } from "hono";
-import { parseBody } from "js-mvc/middleware";
+import { parseBody } from "@spindle/spindle/thread";
 
 import TenetsController from "views/routes/Tenets/controller";
 import TenetsApiController from "views/routes/Tenets/controller.api";
 import WellKnownController from "views/routes/WellKnown/controller";
 import AuthController from "views/routes/Auth/controller";
 
-import { applySchema } from "js-mvc/data/applySchema";
-import { applySeed } from "js-mvc/seed";
+import { applySchema } from "@spindle/spindle/fiber";
+import { applySeed } from "@spindle/spindle/fiber";
 import { schemaDef } from "./.generated/schema";
 import { seedDef } from "./.generated/seed";
 
@@ -76,3 +76,4 @@ AuthController.register(app);
 app.get("/", (c) => c.redirect("/tenets"));
 
 export default app;
+

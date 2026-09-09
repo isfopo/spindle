@@ -1,5 +1,5 @@
 import { TenetStatus } from "domains/tenet/model";
-import { RequestGuard, type ValidationResult } from "js-mvc/gaurds";
+import { RequestGuard, type ValidationResult } from "@spindle/spindle/thread";
 
 export class TransitionRequest extends RequestGuard {
   readonly status: TenetStatus;
@@ -12,3 +12,4 @@ export class TransitionRequest extends RequestGuard {
     return { valid: true, errors: {} };
   }
 }
+

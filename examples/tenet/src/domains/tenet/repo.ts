@@ -1,4 +1,4 @@
-import { RepositoryBase } from "js-mvc/repository/RepositoryBase";
+import { RepositoryBase } from "@spindle/spindle/thread";
 import { procs, type ProcMap } from "./procs.generated";
 import type { Tenet } from "domains/db-types";
 import type { TenetStatus } from "./model";
@@ -57,3 +57,4 @@ export class TenetsRepository extends RepositoryBase<Tenet, ProcMap> {
 
 /** Factory function to create a TenetsRepository with a database connection. */
 export const tenetsRepo = (db: D1Database) => new TenetsRepository(db);
+

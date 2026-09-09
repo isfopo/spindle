@@ -1,6 +1,6 @@
 import { Context, Env } from "hono";
-import { Get, Post, ControllerBase } from "js-mvc/controller/ControllerBase";
-import { Exists, Validate } from "js-mvc/gaurds";
+import { Get, Post, ControllerBase } from "@spindle/spindle/thread";
+import { Exists, Validate } from "@spindle/spindle/thread";
 import { Layout } from "views/routes/Shared/Layout";
 import { handleError } from "error-handler";
 import { requireAuth } from "middleware/auth";
@@ -85,3 +85,4 @@ class TenetsApiController<T extends Env> extends ControllerBase<T> {
 }
 
 export default new TenetsApiController();
+

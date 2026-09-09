@@ -1,4 +1,4 @@
-import { RequestGuard, type ValidationResult } from "js-mvc/gaurds";
+import { RequestGuard, type ValidationResult } from "@spindle/spindle/thread";
 
 export class VoteRequest extends RequestGuard {
   readonly choice: string;
@@ -23,3 +23,4 @@ export class VoteRequest extends RequestGuard {
     return { valid: this.isValid, errors: this.errors };
   }
 }
+

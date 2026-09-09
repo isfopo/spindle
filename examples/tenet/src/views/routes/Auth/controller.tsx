@@ -1,5 +1,5 @@
 import { Context, Env } from "hono";
-import { Get, Post, ControllerBase } from "js-mvc/controller/ControllerBase";
+import { Get, Post, ControllerBase } from "@spindle/spindle/thread";
 import { Layout } from "views/routes/Shared/Layout";
 import { handleError } from "error-handler";
 import { buildAuthorizeUrl, exchangeCode, fetchUser } from "./github";
@@ -119,3 +119,4 @@ class AuthController<T extends Env> extends ControllerBase<T> {
 }
 
 export default new AuthController();
+

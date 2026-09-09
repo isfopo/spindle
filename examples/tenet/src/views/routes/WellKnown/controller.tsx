@@ -1,7 +1,7 @@
 import process from "node:process";
 import crypto from "node:crypto";
 import { Context, Env } from "hono";
-import { Get, ControllerBase } from "js-mvc/controller/ControllerBase";
+import { Get, ControllerBase } from "@spindle/spindle/thread";
 
 class WellKnownController<T extends Env> extends ControllerBase<T> {
   override base = ".well-known";
@@ -23,3 +23,4 @@ class WellKnownController<T extends Env> extends ControllerBase<T> {
 }
 
 export default new WellKnownController();
+

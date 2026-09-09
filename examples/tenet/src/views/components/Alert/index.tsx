@@ -1,6 +1,6 @@
 import type { FC, PropsWithChildren } from "hono/jsx";
 import styles from "./index.module.css";
-import { useHandler } from "js-mvc/client";
+import { useHandler } from "@spindle/spindle/fabric";
 import { DismissHandler } from "views/handlers/DismissHandler";
 
 export type AlertVariant = "info" | "success" | "warning" | "error";
@@ -29,3 +29,4 @@ export const Alert: FC<AlertProps> = ({ variant, header, children }) => {
     </Dismiss>
   );
 };
+

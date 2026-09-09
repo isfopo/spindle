@@ -1,4 +1,4 @@
-import { ServiceBase } from "js-mvc/service/ServiceBase";
+import { ServiceBase } from "@spindle/spindle/thread";
 import { tenetsRepo } from "./repo";
 import { votesRepo } from "domains/vote/repo";
 import type { TenetRow, TenetOptionRow, TenetStatus } from "./model";
@@ -217,3 +217,4 @@ class TenetsService extends ServiceBase {
 }
 
 export const tenetService = new TenetsService();
+

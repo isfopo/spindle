@@ -8,7 +8,7 @@ import {
   ConflictError,
   RateLimitError,
   ServerError,
-} from "js-mvc/errors";
+} from "@spindle/spindle/thread";
 import { ResultsView } from "views/routes/Shared/Results";
 
 export function handleError(
@@ -73,3 +73,4 @@ export function handleError(
     />,
   );
 }
+

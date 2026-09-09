@@ -2,7 +2,7 @@
  * Status handler — confirms before changing tenet status.
  */
 
-import { BaseHandler } from "js-mvc/client";
+import { BaseHandler } from "@spindle/spindle/fabric";
 
 export class StatusHandler extends BaseHandler {
   override connect(): void {
@@ -26,3 +26,4 @@ export class StatusHandler extends BaseHandler {
     form.requestSubmit();
   }
 }
+

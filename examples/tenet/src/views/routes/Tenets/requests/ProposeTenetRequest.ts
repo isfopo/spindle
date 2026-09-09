@@ -1,4 +1,4 @@
-import { RequestGuard, type ValidationResult } from "js-mvc/gaurds"
+import { RequestGuard, type ValidationResult } from "@spindle/spindle/thread"
 
 export interface OptionInput {
   title: string;
@@ -47,3 +47,4 @@ export class ProposeTenetRequest extends RequestGuard {
     return { valid: this.isValid, errors: this.errors };
   }
 }
+

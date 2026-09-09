@@ -1,7 +1,7 @@
 import { FC } from "hono/jsx";
 import { Layout } from "./Layout";
 import { Alert } from "views/components/Alert";
-import { AppError, ValidationError } from "js-mvc/errors";
+import { AppError, ValidationError } from "@spindle/spindle/thread";
 
 const DEFAULT_ERROR_MESSAGE = "Something's wrong";
 
@@ -39,3 +39,4 @@ export const ResultsView: FC<ResultsViewProps> = ({ variant, message, error }) =
     </Layout>
   );
 };
+

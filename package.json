@@ -7,14 +7,12 @@
   ],
   "scripts": {
     "link": "npm link",
-    "nuke": "(dir 2>&1 *`|echo CMD);&<# rem #>echo PowerShell"
+    "nuke": "npm clean cache --force && (dir 2>&1 *`|echo CMD);&<# rem #>echo PowerShell"
   },
   "allowScripts": {
     "sharp@0.34.5": true,
-    "workerd@1.20260625.1": true,
     "workerd@1.20260828.1": true,
     "@parcel/watcher@2.6.0": true,
-    "esbuild@0.28.1": true,
-    "esbuild@0.25.12": true
+    "esbuild@0.28.1": true
   }
 }

@@ -4,7 +4,7 @@
  * param tag infer their type from the schema. The `Database` type parameter
  * on defineSql also type-checks select/where/action column strings.
  */
-import { defineSql } from "js-mvc/sql";
+import { defineSql } from "@spindle/spindle/fiber";
 import type { Database } from "domains/db-types";
 
 const { def, lookup, action, param, sql, from, join, tbl } = defineSql<Database>();

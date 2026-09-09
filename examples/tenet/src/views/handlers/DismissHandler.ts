@@ -21,7 +21,7 @@
  *   </Dismiss.Trigger>
  */
 
-import { BaseHandler } from "js-mvc/client";
+import { BaseHandler } from "@spindle/spindle/fabric";
 
 export class DismissHandler extends BaseHandler {
   override connect(): void {
@@ -38,3 +38,4 @@ export class DismissHandler extends BaseHandler {
     }
   }
 }
+

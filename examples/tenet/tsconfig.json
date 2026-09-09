@@ -13,6 +13,7 @@
     "plugins": [{ "name": "typescript-plugin-css-modules" }],
     "paths": {
       "*": ["./src/*"],
+      "@spindle/*": ["../../packages/*"]
     },
   },
   "include": [

@@ -5,7 +5,7 @@
  */
 
 import type { FC } from "hono/jsx";
-import { useHandler } from "js-mvc/client";
+import { useHandler } from "@spindle/spindle/fabric";
 import { VoteHandler } from "views/handlers/VoteHandler";
 
 export type UserVoteInfo = { choice: string; reason: string | null } | null;
@@ -49,3 +49,4 @@ export const VoteButtons: FC<Props> = ({ slug, userVote }) => {
     </article>
   );
 };
+

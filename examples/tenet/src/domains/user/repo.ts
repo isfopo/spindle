@@ -1,4 +1,4 @@
-import { RepositoryBase } from "js-mvc/repository/RepositoryBase";
+import { RepositoryBase } from "@spindle/spindle/thread";
 import type { UserRow } from "./model";
 import { procs, type ProcMap } from "./procs.generated";
 
@@ -39,3 +39,4 @@ export class UsersRepository extends RepositoryBase<UserRow, ProcMap> {
 
 /** Factory function to create a UsersRepository with a database connection. */
 export const usersRepo = (db: D1Database) => new UsersRepository(db);
+

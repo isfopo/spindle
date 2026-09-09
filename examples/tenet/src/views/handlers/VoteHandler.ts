@@ -4,7 +4,7 @@
  * For "block", prompts for a reason before submitting the form.
  */
 
-import { BaseHandler } from "js-mvc/client";
+import { BaseHandler } from "@spindle/spindle/fabric";
 
 export class VoteHandler extends BaseHandler {
   override connect(): void {
@@ -30,3 +30,4 @@ export class VoteHandler extends BaseHandler {
     form.requestSubmit();
   }
 }
+

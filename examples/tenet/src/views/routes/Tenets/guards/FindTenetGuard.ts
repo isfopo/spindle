@@ -1,5 +1,5 @@
 import type { Context } from "hono";
-import type { IExistable } from "js-mvc/gaurds";
+import type { IExistable } from "@spindle/spindle/thread";
 import { tenetsRepo } from "domains/tenet/repo";
 
 export class FindTenetGuard implements IExistable {
@@ -11,3 +11,4 @@ export class FindTenetGuard implements IExistable {
     });
   }
 }
+
