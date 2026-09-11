@@ -1,2 +1,1 @@
-export * from "./plugins"
-export * from "./src"
+export * from "./src/index"

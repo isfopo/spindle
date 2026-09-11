@@ -1,10 +1,7 @@
-import type { GuardDescriptor, MethodDecoratorFactory } from "thread";
+import type { GuardDescriptor, MethodDecoratorFactory } from "./index";
 
 /** Shared metadata key used by decorators and ControllerBase. */
 export const GUARDS_KEY = Symbol("hono:guards");
-
-/** A GuardDescriptor with the handlerName omitted, to be set by guardDecorator. */
-type GuardDescriptorWithoutHandlerName = Omit<GuardDescriptor, "handlerName">;
 
 /**
  * Base class for guard decorators.
@@ -35,13 +32,16 @@ export abstract class GuardDecorator<G extends GuardDescriptor> {
    * automatically from the decorated method name, pushing the completed
    * descriptor into the shared metadata.
    */
-  static guardDecorator(
-    guard: GuardDescriptorWithoutHandlerName,
+  static guardDecorator<G extends GuardDescriptor>(
+    guard: Omit<G, "handlerName">,
   ): MethodDecoratorFactory {
     return (_target, context) => {
       const metadata = context.metadata as Record<PropertyKey, unknown>;
       const guards = (metadata[GUARDS_KEY] ??= []) as GuardDescriptor[];
-      guards.push({ ...guard, handlerName: String(context.name) });
+      guards.push({
+        ...guard,
+        handlerName: String(context.name),
+      } as G);
     };
   }
 

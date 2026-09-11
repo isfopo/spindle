@@ -13,6 +13,8 @@ export type * from "./column";
 export * from "./ddl"
 export type * from "./ddl"
 
+export * from "./applySchema";
+
 // Generators (build-time / tooling).
 export * from "./generate-sql";
 export * from "./generate-types";

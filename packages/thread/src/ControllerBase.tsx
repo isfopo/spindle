@@ -21,11 +21,11 @@
 import { Context, Env, Hono } from "hono";
 import { renderToString } from "hono/jsx/dom/server";
 import type { FC } from "hono/jsx";
-import { NotFoundError, ValidationError } from "thread/src/errors";
-import { parseRequestBody } from "thread/src/middleware/parseBody";
+import { NotFoundError, ValidationError } from "./errors";
+import { parseRequestBody } from "./middleware/parseBody";
 import { GUARDS_KEY } from "./guards/GuardDecorator";
-import type { GuardDescriptor, MethodDecoratorFactory } from "thread/src/guards";
-import { ViewBuilderBase } from "thread/src";
+import type { GuardDescriptor, MethodDecoratorFactory } from "./guards";
+import { ViewBuilderBase } from "./ViewBuilderBase";
 
 /**
  * A render descriptor records that a route handler's return value (a plain

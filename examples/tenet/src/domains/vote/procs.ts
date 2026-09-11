@@ -2,7 +2,7 @@
  * Vote stored queries — compiled once by sqlPlugin into static SQL with
  * schema-derived types (procs.generated.ts).
  */
-import { defineSql } from "@spindle/spindle/fiber";
+import { defineSql } from "@spindle/spindle";
 import type { Database } from "domains/db-types";
 
 const { def, lookup, action, param, sql, from, join } = defineSql<Database>();

@@ -14,8 +14,8 @@
  * re-sow, because the "tables have rows" check fails.
  */
 
-import type { Database, Statement } from "fiber";
-import type { SchemaDef } from "fiber";
+import type { Database, Statement } from "../index";
+import type { SchemaDef } from "../schema";
 import type { CompiledSeed } from "./compileSeed";
 import { seedOrder } from "./compileSeed";
 

@@ -119,7 +119,7 @@ function generateModule(paths: ResolvedPaths, files: string[]): string {
     lines.push(`// ${line}`);
   }
   lines.push("");
-  lines.push('import { register } from "spindle";');
+  lines.push('import { register } from "@spindle/spindle/fabric";');
   lines.push("");
 
   files.forEach((file, index) => {
@@ -165,7 +165,7 @@ function generateClientEntry(paths: ResolvedPaths): string {
     lines.push(`// ${line}`);
   }
   lines.push("");
-  lines.push('import { hydrate, hydrateEvent } from "js-mvc/client";');
+  lines.push('import { hydrate, hydrateEvent } from "@spindle/spindle/fabric";');
   lines.push(`import ${JSON.stringify(rel)};`);
   lines.push("");
   lines.push("export { hydrate, hydrateEvent };");

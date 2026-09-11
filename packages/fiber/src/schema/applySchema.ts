@@ -22,10 +22,10 @@
  * nullability, PK and default changes ARE detected.
  */
 
-import { Database } from "fiber";
-import { ColumnDef } from "fiber";
+import type { Database } from "../index";
+import type { ColumnDef } from "./column";
 
-import type { IndexLike } from "fiber";
+import type { IndexLike } from "./ddl";
 import {
   quoteIdent,
   renderCreateTable,
@@ -33,9 +33,9 @@ import {
   renderAddColumn,
   renderRenameColumn,
   renderDropIndex,
-} from "fiber";
-import { SchemaDef } from "fiber";
-import { TableDef } from "fiber";
+} from "./ddl";
+import type { SchemaDef } from "./schema";
+import type { TableDef } from "./table";
 
 /** A column as reported by `PRAGMA table_info`. */
 interface LiveColumn {

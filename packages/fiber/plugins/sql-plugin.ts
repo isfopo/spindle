@@ -87,28 +87,18 @@ async function findProcsFiles(roots: string[]): Promise<string[]> {
   return out;
 }
 
-/** Bundle + execute a procs.ts (resolving js-mvc/sql) to the ProcDefs. */
+/** Bundle + execute a procs.ts (resolving the fiber DSL) to the ProcDefs. */
 async function loadProcs(
   procsPath: string,
   projectRoot: string,
 ): Promise<ProcDefs> {
-  const frameworkIndex = resolve(projectRoot, "package/src/sql/index.ts");
   const result = await esbuild({
     entryPoints: [procsPath],
     bundle: true,
     write: false,
     format: "esm",
     platform: "node",
-    plugins: [
-      {
-        name: "js-mvc-sql-alias",
-        setup(build) {
-          build.onResolve({ filter: /^js-mvc\/sql$/ }, () => ({
-            path: frameworkIndex,
-          }));
-        },
-      },
-    ],
+    // `@spindle/spindle` resolves through the consumer's node_modules.
   });
   const code = result.outputFiles[0].text;
   const tmpFile = join(

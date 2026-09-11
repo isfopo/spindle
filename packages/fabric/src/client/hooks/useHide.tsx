@@ -28,7 +28,7 @@
  */
 
 import { JSX } from "react";
-import { buildConditionSelector, cssBlock, TAG_DISPLAY } from "fabric";
+import { buildConditionSelector, cssBlock, TAG_DISPLAY } from "../../utils";
 import {
   makeScope,
   type EffectProps,

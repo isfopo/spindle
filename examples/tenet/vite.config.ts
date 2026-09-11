@@ -1,3 +1,6 @@
+import { fileURLToPath } from "node:url";
+import { existsSync, statSync } from "node:fs";
+import { resolve } from "node:path";
 import { cloudflare } from "@cloudflare/vite-plugin";
 import { defineConfig } from "vite";
 import {
@@ -7,10 +10,37 @@ import {
   schemaPlugin,
   seedPlugin,
   sqlPlugin,
-} from "@spindle/spindle/fiber";
+} from "@spindle/spindle/plugins";
+
+const root = fileURLToPath(new URL(".", import.meta.url));
+
+/** Mirrors tsconfig paths `"*": ["./src/*"]`: bare imports like
+ *  `views/...`, `domains/...`, `error-handler` resolve under src/ first,
+ *  falling back to normal node_modules resolution when no src file matches. */
+function srcPathsAlias() {
+  return {
+    name: "src-paths",
+    enforce: "pre",
+    resolveId(source: string, importer?: string) {
+      if (!importer || source.startsWith(".") || source.startsWith("@")) return;
+      const candidates = [
+        resolve(root, "src", source),
+        resolve(root, "src", `${source}.ts`),
+        resolve(root, "src", `${source}.tsx`),
+        resolve(root, "src", source, "index.ts"),
+        resolve(root, "src", source, "index.tsx"),
+      ];
+      const hit = candidates.find(
+        (p) => existsSync(p) && statSync(p).isFile(),
+      );
+      if (hit) return hit;
+    },
+  };
+}
 
 export default defineConfig({
   plugins: [
+    srcPathsAlias(),
     schemaPlugin(),
     seedPlugin(),
     sqlPlugin(),

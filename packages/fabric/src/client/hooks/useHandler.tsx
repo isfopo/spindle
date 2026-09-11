@@ -31,7 +31,7 @@
  * data-*, aria-*, ...) pass through untouched.
  */
 
-import { genId } from "fabric";
+import { genId } from "../../utils";
 import { JSX } from "react";
 
 // ---------------------------------------------------------------------------
@@ -39,9 +39,10 @@ import { JSX } from "react";
 // ---------------------------------------------------------------------------
 
 /** Module URL of the client bundle that exports hydrate() */
-const CLIENT_MODULE_URL = import.meta.env.DEV
-  ? "/src/.generated/client-entry.ts"
-  : "/.generated/client/index.js";
+const CLIENT_MODULE_URL =
+  typeof import.meta.env !== "undefined" && import.meta.env.DEV
+    ? "/src/.generated/client-entry.ts"
+    : "/.generated/client/index.js";
 
 /** Inline script that hydrates one handler instance onto its element */
 const HydrateScript = ({ name, id }: { name: string; id: string | null }) => (

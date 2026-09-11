@@ -9,9 +9,26 @@
     "build": "tsdown"
   },
   "exports": {
-    "./fiber": "./src/fiber/index.ts",
-    "./thread": "./src/thread/index.ts",
-    "./fabric": "./src/fabric/index.ts"
+    ".": {
+      "types": "./dist/fiber/index.d.mts",
+      "import": "./dist/fiber/index.mjs"
+    },
+    "./fiber": {
+      "types": "./dist/fiber/index.d.mts",
+      "import": "./dist/fiber/index.mjs"
+    },
+    "./thread": {
+      "types": "./dist/thread/index.d.mts",
+      "import": "./dist/thread/index.mjs"
+    },
+    "./fabric": {
+      "types": "./dist/fabric/index.d.mts",
+      "import": "./dist/fabric/index.mjs"
+    },
+    "./plugins": {
+      "types": "./dist/plugins/index.d.mts",
+      "import": "./dist/plugins/index.mjs"
+    }
   },
   "peerDependencies": {
     "hono": "^4.12.16",

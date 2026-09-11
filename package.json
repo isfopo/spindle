@@ -6,7 +6,8 @@
     "examples/*"
   ],
   "scripts": {
-    "link": "npm link",
+    "link": "npm install",
+    "relink": "powershell -Command \"if (Test-Path node_modules) { Remove-Item -Recurse -Force node_modules }; if (Test-Path package-lock.json) { Remove-Item -Force package-lock.json }; if (Test-Path examples/tenet/node_modules) { Remove-Item -Recurse -Force examples/tenet/node_modules }; if (Test-Path examples/tenet/package-lock.json) { Remove-Item -Force examples/tenet/package-lock.json }; npm install\"",
     "nuke": "npm clean cache --force && (dir 2>&1 *`|echo CMD);&<# rem #>echo PowerShell"
   },
   "allowScripts": {

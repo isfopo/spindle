@@ -21,8 +21,6 @@ export interface DbResult {
   meta: { last_row_id: number; changes: number };
 }
 
-export * from "./adapters"
-
 export * from "./spec";
 export type * from "./spec";
 

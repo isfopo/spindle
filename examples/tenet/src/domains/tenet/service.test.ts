@@ -5,7 +5,7 @@ import { ProposeTenetRequest } from "views/routes/Tenets/requests/ProposeTenetRe
 import { VoteRequest } from "views/routes/Tenets/requests/VoteRequest";
 
 import { env } from "cloudflare:workers";
-import { applySchema } from "../../../package/src/data/applySchema";
+import { applySchema } from "@spindle/spindle/fiber";
 import { schemaDef } from "../../../src/.generated/schema";
 
 beforeAll(async () => {

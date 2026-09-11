@@ -91,25 +91,14 @@ export async function loadSchemaModule(
   projectRoot: string,
   schemaPath: string,
 ): Promise<SchemaDef> {
-  const frameworkIndex = resolve(projectRoot, "package/src/schema/index.ts");
-
   const result = await esbuild({
     entryPoints: [schemaPath],
     bundle: true,
     write: false,
     format: "esm",
     platform: "node",
-    // Inline the DSL so the schema module is self-contained (no runtime imports).
-    plugins: [
-      {
-        name: "js-mvc-schema-alias",
-        setup(build) {
-          build.onResolve({ filter: /^js-mvc\/schema$/ }, () => ({
-            path: frameworkIndex,
-          }));
-        },
-      },
-    ],
+    // `@spindle/spindle` resolves through the consumer's node_modules, so the
+    // bundled schema module is self-contained (no runtime imports).
   });
 
   const code = result.outputFiles[0].text;

@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { ControllerBase, BODY_KEY, NotFoundError, ForbiddenError, ValidationError } from "thread";
+import { ControllerBase, BODY_KEY, NotFoundError, ForbiddenError, ValidationError } from "../index";
 
 import { Authorize, type IAuthorizable } from "./Authorize";
 import { Exists, type IExistable } from "./Exists";

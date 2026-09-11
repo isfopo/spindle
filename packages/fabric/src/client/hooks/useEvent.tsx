@@ -7,11 +7,12 @@
  */
 
 import { JSX } from "react";
-import { genId } from "fabric";
+import { genId } from "../../utils";
 
-const CLIENT_MODULE_URL = import.meta.env.DEV
-  ? "/src/.generated/client-entry.ts"
-  : "/.generated/client/index.js";
+const CLIENT_MODULE_URL =
+  typeof import.meta.env !== "undefined" && import.meta.env.DEV
+    ? "/src/.generated/client-entry.ts"
+    : "/.generated/client/index.js";
 
 const HTML_ATTRS = new Set(["class", "style", "role", "title", "hidden", "name"]);
 

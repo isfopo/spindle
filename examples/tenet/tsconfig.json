@@ -12,13 +12,12 @@
     "noImplicitOverride": true,
     "plugins": [{ "name": "typescript-plugin-css-modules" }],
     "paths": {
-      "*": ["./src/*"],
-      "@spindle/*": ["../../packages/*"]
+      "*": ["./src/*"]
     },
   },
   "include": [
     "src/**/*",
-    "examples/tenet/worker-configuration.d.tsfiguration.d.ts",
+    "worker-configuration.d.ts",
   ],
   "exclude": ["node_modules", "src/.generated"],
 }

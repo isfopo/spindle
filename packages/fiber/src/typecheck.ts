@@ -7,8 +7,8 @@
  * column validation, and an "unused @ts-expect-error" error would flag it.
  */
 
-import { defineSql } from "fiber";
-import type { Database } from "fiber";
+import { defineSql } from "./spec";
+import type { Database } from "./index";
 
 const { lookup, action, param, sql, from, join} = defineSql<Database>();
 
