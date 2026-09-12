@@ -1,5 +1,5 @@
 /**
- * Tenet stored queries — compiled once by sqlPlugin into static SQL with
+ * Tenet stored queries — compiled once by fiberPlugin into static SQL with
  * schema-derived types (procs.generated.ts). Columns without an explicit
  * param tag infer their type from the schema. The `Database` type parameter
  * on defineSql also type-checks select/where/action column strings.

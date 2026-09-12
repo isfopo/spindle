@@ -2,22 +2,15 @@ import { fileURLToPath } from "node:url";
 import { existsSync, statSync } from "node:fs";
 import { resolve } from "node:path";
 import { cloudflare } from "@cloudflare/vite-plugin";
-import { defineConfig } from "vite";
-import {
-  clientBuildPlugin,
-  cssBuildPlugin,
-  handlerRegistryPlugin,
-  schemaPlugin,
-  seedPlugin,
-  sqlPlugin,
-} from "@spindle/spindle/plugins";
+import { defineConfig, type Plugin } from "vite";
+import { spindlePlugin } from "@spindle/spindle/plugins";
 
 const root = fileURLToPath(new URL(".", import.meta.url));
 
 /** Mirrors tsconfig paths `"*": ["./src/*"]`: bare imports like
  *  `views/...`, `domains/...`, `error-handler` resolve under src/ first,
  *  falling back to normal node_modules resolution when no src file matches. */
-function srcPathsAlias() {
+function srcPathsAlias(): Plugin {
   return {
     name: "src-paths",
     enforce: "pre",
@@ -41,22 +34,22 @@ function srcPathsAlias() {
 export default defineConfig({
   plugins: [
     srcPathsAlias(),
-    schemaPlugin(),
-    seedPlugin(),
-    sqlPlugin(),
-    cssBuildPlugin({
-      sourceDirs: [
-        "src/views/tokens",
-        "src/views/elements",
-        "src/views/components",
-        "src/views/routes",
-      ],
-    }),
-    clientBuildPlugin(),
-    handlerRegistryPlugin({
-      // Handlers are auto-discovered by this glob; no per-handler paths
-      // need to be maintained in source.
-      include: "src/views/handlers/**/*Handler.ts",
+    spindlePlugin({
+      fabric: {
+        css: {
+          sourceDirs: [
+            "src/views/tokens",
+            "src/views/elements",
+            "src/views/components",
+            "src/views/routes",
+          ],
+        },
+        handlers: {
+          // Handlers are auto-discovered by this glob; no per-handler paths
+          // need to be maintained in source.
+          include: "src/views/handlers/**/*Handler.ts",
+        },
+      },
     }),
     cloudflare({ inspectorPort: 9229 }),
   ],

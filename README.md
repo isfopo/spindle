@@ -54,15 +54,14 @@ Controllers import from `js-mvc/controller/ControllerBase` and call `configureRe
 
 ## Build process
 
-Standalone build scripts (`scripts/build-css.ts`, `scripts/build-client.ts`) have been replaced by Vite plugins:
+Standalone build scripts (`scripts/build-css.ts`, `scripts/build-client.ts`) have been replaced by Vite plugins, one per branch plus a unified entry:
 
 | Plugin | Purpose |
 |---|---|
-| `schemaPlugin` | Generates db-types, derived `schema.sql`, and the runtime schema module from `src/domains/schema.ts` |
-| `seedPlugin` | Compiles TS-authored `src/domains/seed.ts` (faker, dev-only) into a pure-data module |
-| `sqlPlugin` | Compiles TS-authored `procs.ts` stored queries into typed SQL modules |
-| `cssBuildPlugin` | Combines, scopes, inlines SVGs, and minifies CSS |
-| `clientBuildPlugin` | Bundles client-side TypeScript via esbuild |
+| `spindlePlugin` | Unified entry — runs all three branches from one options object |
+| `fiberPlugin` | Generates db-types, derived `schema.sql`, the runtime schema module, the compiled seed module, and typed `procs.generated.ts` modules |
+| `fabricPlugin` | Combines, scopes, inlines SVGs, minifies CSS; auto-registers client handlers |
+| `threadPlugin` | Bundles client-side TypeScript via esbuild |
 
 All plugins are configured in `vite.config.ts` and run automatically during `npm run dev` and `npm run build`.
 

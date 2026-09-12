@@ -101,7 +101,7 @@ const Dismiss = useHandler(DismissHandler)
 </Dismiss>
 ```
 
-Handlers are registered automatically: `handlerRegistryPlugin` glob-discovers
+Handlers are registered automatically: `fabricPlugin` glob-discovers
 every `*Handler.ts` file and generates the registration module at build time,
 so you never write a `register(...)` call or enumerate handler imports.
 
@@ -217,7 +217,7 @@ const Confirm = useDisable({ scope: "confirm" })
 | `js-mvc/client/BaseHandler` | `BaseHandler` for custom client controllers |
 | `js-mvc/client/dispatcher` | Client-side handler dispatcher |
 | `js-mvc/adapters/d1` | Cloudflare D1 database adapter |
-| `js-mvc/plugins` | Vite plugins (`schemaPlugin`, `seedPlugin`, `sqlPlugin`, `cssBuildPlugin`, `clientBuildPlugin`, `handlerRegistryPlugin`) |
+| `js-mvc/plugins` | Vite plugins (`spindlePlugin`, `fiberPlugin`, `fabricPlugin`, `threadPlugin`) |
 
 ---
 
@@ -285,39 +285,51 @@ async adminView(c) {
 
 ## Vite plugins
 
-```ts
-import { schemaPlugin, seedPlugin, sqlPlugin, cssBuildPlugin, clientBuildPlugin, handlerRegistryPlugin } from "js-mvc/plugins"
+One plugin per branch, plus a unified `spindlePlugin` for all three. Every
+plugin takes a single options object grouped by concern; all paths have
+convention defaults, so `{}` works out of the box.
 
+```ts
+import { spindlePlugin, fiberPlugin } from "js-mvc/plugins"
+
+// Everything in one call:
 export default {
   plugins: [
-    sqlTransformPlugin(),
-    sqlTypesPlugin({
-      tableNameOverrides: {
-        people: "Person",
+    spindlePlugin({
+      fabric: {
+        css: {
+          sourceDirs: ["src/styles", "src/components"],
+        },
+        handlers: {
+          // Handlers are glob-discovered (default: src/views/handlers/**/*.ts)
+          // and auto-registered; no per-handler paths in source.
+          include: "src/views/handlers/**/*Handler.ts",
+        },
       },
-    }),
-    cssBuildPlugin({
-      sourceDirs: ["src/styles", "src/components"],
-    }),
-    handlerRegistryPlugin({
-      // Handlers are glob-discovered (default: src/views/handlers/**/*.ts)
-      // and auto-registered; no per-handler paths in source.
-      include: "src/views/handlers/**/*Handler.ts",
-    }),
-    clientBuildPlugin({
-      entryPoint: "src/.generated/client-entry.ts",
     }),
   ],
 }
+
+// Or just the data layer (schema, seed, stored queries):
+export default {
+  plugins: [fiberPlugin()],
+}
 ```
 
-`handlerRegistryPlugin` generates `src/.generated/handlers.ts` — which imports
-and registers every discovered `*Handler` class with the hydration runtime —
-and also generates `src/.generated/client-entry.ts`, the module the browser
-loads: it imports those handlers and re-exports the framework's hydration
-helpers. There is no hand-written client entry file; adding a new handler
-requires dropping a `*Handler.ts` file into the handlers directory and nothing
-else.
+`fiberPlugin` runs schema, seed, and stored-query compilation in one ordered
+pass: `src/domains/schema.ts` → `src/.generated/schema.ts`, the derived
+`schema.sql` + `db-types.d.ts`, `src/domains/seed.ts` → `src/.generated/seed.ts`,
+and every `procs.ts` → `procs.generated.ts`.
+
+`fabricPlugin` bundles CSS (combine, scope `.module.css`, inline SVGs, minify)
+and generates `src/.generated/handlers.ts` — which imports and registers every
+discovered `*Handler` class with the hydration runtime — plus
+`src/.generated/client-entry.ts`, the module the browser loads. There is no
+hand-written client entry file; adding a new handler requires dropping a
+`*Handler.ts` file into the handlers directory and nothing else.
+
+`threadPlugin` bundles the generated client entry into a static JS asset via
+esbuild (production builds only).
 
 ---
 

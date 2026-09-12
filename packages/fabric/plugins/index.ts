@@ -1,2 +1,2 @@
-export { cssBuildPlugin, type CssBuildPluginOptions} from "./css-build-plugin"
-export { handlerRegistryPlugin, type HandlerRegistryPluginOptions } from "./handler-registry-plugin"
+export { fabricPlugin } from "./fabric-plugin";
+export type { FabricPluginOptions } from "./fabric-plugin";

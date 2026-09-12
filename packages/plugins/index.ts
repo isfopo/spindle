@@ -2,19 +2,25 @@
  * Build-time Vite plugins — kept separate from the runtime entries (fiber,
  * thread, fabric) so consuming apps can import runtime code without dragging
  * Node-only plugin code (fs, clean-css, esbuild) into worker or client bundles.
+ *
+ *   spindlePlugin(options) → all three branches in one call (Plugin[])
+ *   fiberPlugin(options)   → schema, seed, and stored-query compilation
+ *   fabricPlugin(options)  → CSS bundling and client handler registration
+ *   threadPlugin(options)  → client-side TypeScript bundling
  */
 export {
-  schemaPlugin,
-  type SchemaPluginOptions,
-} from "../fiber/plugins/schema-plugin";
-export { seedPlugin, type SeedPluginOptions } from "../fiber/plugins/seed-plugin";
-export { sqlPlugin, type SqlPluginOptions } from "../fiber/plugins/sql-plugin";
-export { clientBuildPlugin, type ClientBuildPluginOptions } from "../thread/plugins/client-build-plugin";
+  spindlePlugin,
+  type SpindlePluginOptions,
+} from "./spindle-plugin";
 export {
-  cssBuildPlugin,
-  type CssBuildPluginOptions,
-} from "../fabric/plugins/css-build-plugin";
+  fiberPlugin,
+  type FiberPluginOptions,
+} from "../fiber/plugins/fiber-plugin";
 export {
-  handlerRegistryPlugin,
-  type HandlerRegistryPluginOptions,
-} from "../fabric/plugins/handler-registry-plugin";
+  fabricPlugin,
+  type FabricPluginOptions,
+} from "../fabric/plugins/fabric-plugin";
+export {
+  threadPlugin,
+  type ThreadPluginOptions,
+} from "../thread/plugins/thread-plugin";

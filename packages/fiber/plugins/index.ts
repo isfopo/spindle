@@ -1,3 +1,2 @@
-export * from "./sql-plugin";
-export * from "./schema-plugin";
-export * from "./seed-plugin";
+export { fiberPlugin } from "./fiber-plugin";
+export type { FiberPluginOptions } from "./fiber-plugin";

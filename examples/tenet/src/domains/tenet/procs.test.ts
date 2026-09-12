@@ -3,7 +3,7 @@
  * executed against a real D1 binding, exercised through the repositories.
  *
  * This is the runtime proof for the TS-authored stored queries: the SQL
- * strings compiled by sqlPlugin must produce exactly the behavior the old
+ * strings compiled by fiberPlugin must produce exactly the behavior the old
  * .sql files did (joins, named-param binding, RETURNING, updates).
  */
 

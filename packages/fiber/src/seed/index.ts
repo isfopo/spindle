@@ -1,7 +1,7 @@
 /**
  * js-mvc/seed — declarative dev-database seeding.
  *
- *   defineSeed(schema, spec) → compiled at dev/build time by seedPlugin into
+ *   defineSeed(schema, spec) → compiled at dev/build time by fiberPlugin into
  *   a pure-data module → applySeed(db, schema, seed) sows it on DEV boot.
  *
  * The faker library is used only by the compiler (build/dev tools); the

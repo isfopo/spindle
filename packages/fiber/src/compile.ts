@@ -1,7 +1,7 @@
 /**
  * Compiles a ProcDefs block into a typed SQL module.
  *
- * Runs only at dev/build time (inside sqlPlugin, or node-side in tests). For
+ * Runs only at dev/build time (inside fiberPlugin, or node-side in tests). For
  * each proc it renders the SQL string (parameters use `@name` so the existing
  * repository binding resolves them) and derives the TypeScript `params` and
  * `result` types from the schema singleton — projections like `t.*` expand to
@@ -63,7 +63,7 @@ interface ParamsCollector {
 /**
  * Compile a ProcDefs block into a typed SQL module.
  *
- * Runs at dev/build time (inside sqlPlugin, or node-side in tests). For each
+ * Runs at dev/build time (inside fiberPlugin, or node-side in tests). For each
  * proc it renders the SQL statements (named `@param` placeholders resolved by
  * the repository binding) and derives `params`/`result` types from the schema,
  * so repository method signatures can never drift from the database.

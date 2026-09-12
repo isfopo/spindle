@@ -1,7 +1,7 @@
 /**
  * Dev seed spec — describes the data sowed into the local D1 database.
  *
- * Compiled at dev/build time by seedPlugin into a pure-data module
+ * Compiled at dev/build time by fiberPlugin into a pure-data module
  * (src/.generated/seed.ts) and applied once on worker boot via applySeed().
  * The dataset only changes when this spec changes; reboots stay stable.
  *

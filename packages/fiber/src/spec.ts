@@ -2,7 +2,7 @@
  * js-mvc/sql DSL — TypeScript-authored stored queries.
  *
  * A `def({ ... })` block in a `procs.ts` file describes the actions and
- * lookups a repository needs. At dev/build time `sqlPlugin` compiles it —
+ * lookups a repository needs. At dev/build time `fiberPlugin` compiles it —
  * once — into a static SQL module (`procs.generated.ts`) with a typed
  * `ProcMap`, deriving result and parameter types from the schema singleton so
  * they can never drift from the database.

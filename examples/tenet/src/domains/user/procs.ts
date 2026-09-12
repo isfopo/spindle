@@ -1,5 +1,5 @@
 /**
- * User stored queries — compiled once by sqlPlugin into static SQL with
+ * User stored queries — compiled once by fiberPlugin into static SQL with
  * schema-derived types (procs.generated.ts).
  */
 import { defineSql } from "@spindle/spindle/fiber";

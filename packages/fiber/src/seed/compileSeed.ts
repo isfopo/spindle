@@ -1,7 +1,7 @@
 /**
  * Seed compiler — turns a SeedSpec into concrete, deterministic literal rows.
  *
- * Runs only at dev/build time (inside seedPlugin, or Node-side in tests); the
+ * Runs only at dev/build time (inside fiberPlugin, or Node-side in tests); the
  * emitted module is pure data with no faker import, so the worker bundle never
  * contains the faker library.
  *

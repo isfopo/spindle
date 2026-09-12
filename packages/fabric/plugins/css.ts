@@ -1,9 +1,16 @@
-import type { Plugin, ViteDevServer } from "vite";
+/**
+ * CSS bundling logic for fabricPlugin.
+ *
+ * Combines all CSS source files (priority-ordered), inlines SVGs referenced
+ * as `url("inline-svg:...")`, scopes `.module.css` class names, minifies with
+ * clean-css, and writes a single bundle.
+ */
+
 import CleanCSS from "clean-css";
 import { readFileSync, writeFileSync, readdirSync, mkdirSync } from "node:fs";
 import { resolve, dirname, basename } from "node:path";
 
-export interface CssBuildPluginOptions {
+export interface CssOptions {
   /**
    * Source directories to scan for CSS files (relative to project root or absolute).
    * @default ["src/views/styles", "src/views/components", "src/views/routes"]
@@ -55,7 +62,7 @@ export interface CssBuildPluginOptions {
   hmrTriggerFile?: string | false;
 }
 
-interface ResolvedPaths {
+export interface ResolvedCssPaths {
   sourceDirs: string[];
   outDir: string;
   outFile: string;
@@ -66,10 +73,10 @@ interface ResolvedPaths {
   hmrTriggerFile: string | false;
 }
 
-function resolvePaths(
+export function resolveCssPaths(
   projectRoot: string,
-  options: CssBuildPluginOptions,
-): ResolvedPaths {
+  options: CssOptions = {},
+): ResolvedCssPaths {
   const toAbsolute = (p: string | undefined, fallback: string) =>
     p && p.startsWith("/") ? p : resolve(projectRoot, p ?? fallback);
 
@@ -98,10 +105,6 @@ function resolvePaths(
         : toAbsolute(options.hmrTriggerFile, "src/views/routes/Shared/Layout.tsx"),
   };
 }
-
-// ---------------------------------------------------------------------------
-// Build logic
-// ---------------------------------------------------------------------------
 
 function getFiles(dir: string, ext: string, files: string[] = []): string[] {
   const entries = readdirSync(dir, { withFileTypes: true });
@@ -174,7 +177,7 @@ function scopeCSSModules(css: string, filePath: string): string {
     .join("");
 }
 
-function getCSSFiles(paths: ResolvedPaths): string[] {
+function getCSSFiles(paths: ResolvedCssPaths): string[] {
   let cssFiles: string[] = [];
 
   for (const dir of paths.sourceDirs) {
@@ -205,7 +208,7 @@ function getCSSFiles(paths: ResolvedPaths): string[] {
   });
 }
 
-function combineCSS(paths: ResolvedPaths): string {
+function combineCSS(paths: ResolvedCssPaths): string {
   const cssFiles = getCSSFiles(paths);
 
   console.log(`Found ${cssFiles.length} CSS source files:`);
@@ -232,10 +235,10 @@ function combineCSS(paths: ResolvedPaths): string {
 }
 
 /**
- * Build CSS bundle and write to output directory.
+ * Build the CSS bundle and write it to the output directory.
  * Returns the minified CSS string.
  */
-function buildCss(paths: ResolvedPaths): string {
+export function buildCss(paths: ResolvedCssPaths): string {
   mkdirSync(paths.outDir, { recursive: true });
 
   const fullCSS = combineCSS(paths);
@@ -244,76 +247,4 @@ function buildCss(paths: ResolvedPaths): string {
   console.log(`\n✓ Full bundle: ${minified.length} bytes (minified)\n`);
 
   return minified;
-}
-
-// ---------------------------------------------------------------------------
-// Plugin
-// ---------------------------------------------------------------------------
-
-/**
- * Vite plugin that bundles CSS during builds and watches for changes in dev mode.
- *
- * Combines all CSS source files, inlines SVGs, scopes CSS modules,
- * and minifies the output into a single bundle.
- */
-export function cssBuildPlugin(options: CssBuildPluginOptions = {}): Plugin {
-  let resolvedPaths: ResolvedPaths;
-  let isBuilding = false;
-
-  return {
-    name: "css-build",
-
-    configResolved(config) {
-      resolvedPaths = resolvePaths(config.root, options);
-    },
-
-    buildStart() {
-      console.log("🔨 Building CSS...");
-      try {
-        buildCss(resolvedPaths);
-      } catch (err) {
-        console.error("✗ CSS build failed:", (err as Error).message);
-      }
-    },
-
-    configureServer(server: ViteDevServer) {
-      if (!resolvedPaths.runInDev) return;
-
-      for (const dir of resolvedPaths.sourceDirs) {
-        server.watcher.add(dir);
-      }
-
-      server.watcher.on("change", (file: string) => {
-        const isExcluded = resolvedPaths.excludePaths.some((p) =>
-          file.includes(p),
-        );
-        const isInSourceDir = resolvedPaths.sourceDirs.some((d) =>
-          file.startsWith(d),
-        );
-        if (
-          (file.endsWith(".css") ||
-          file.endsWith(".module.css") ||
-          file.endsWith(".svg")) &&
-          !isExcluded &&
-          isInSourceDir &&
-          !isBuilding
-        ) {
-          isBuilding = true;
-          console.log(`\n📝 ${basename(file)} changed, rebuilding CSS...`);
-          try {
-            buildCss(resolvedPaths);
-            // Trigger HMR by touching the configured layout file
-            if (resolvedPaths.hmrTriggerFile) {
-              server.watcher.emit("change", resolvedPaths.hmrTriggerFile);
-            }
-            console.log("✓ CSS rebuilt\n");
-          } catch (err) {
-            console.error("✗ CSS build failed:", (err as Error).message);
-          } finally {
-            isBuilding = false;
-          }
-        }
-      });
-    },
-  };
 }

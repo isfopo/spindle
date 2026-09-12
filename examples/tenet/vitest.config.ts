@@ -3,14 +3,15 @@ import { existsSync, statSync } from "node:fs";
 import { resolve } from "node:path";
 import { cloudflareTest } from "@cloudflare/vitest-pool-workers";
 import { defineConfig } from "vitest/config";
-import { schemaPlugin, seedPlugin, sqlPlugin } from "@spindle/spindle/plugins";
+import type { Plugin } from "vite";
+import { fiberPlugin } from "@spindle/spindle/plugins";
 
 const root = fileURLToPath(new URL(".", import.meta.url));
 
 /** Mirrors tsconfig paths `"*": ["./src/*"]`: bare imports like
  *  `views/...`, `domains/...`, `error-handler` resolve under src/ first,
  *  falling back to normal node_modules resolution when no src file matches. */
-function srcPathsAlias() {
+function srcPathsAlias(): Plugin {
   return {
     name: "src-paths",
     enforce: "pre",
@@ -38,9 +39,7 @@ export default defineConfig({
   },
   plugins: [
     srcPathsAlias(),
-    schemaPlugin(),
-    seedPlugin(),
-    sqlPlugin(),
+    fiberPlugin(),
     cloudflareTest({
       wrangler: { configPath: "./wrangler.jsonc" },
       miniflare: {
@@ -55,9 +54,7 @@ export default defineConfig({
     include: [
       "src/**/*.test.ts",
       "src/**/*.test.tsx",
-      ".vite/**/*.test.ts",
-      "package/**/*.test.ts",
-      "package/**/*.test.tsx",
+      ".vite/**/*.test.ts"
     ],
   },
 });
