@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "jsx": "react-jsx",
+    "jsxImportSource": "hono/jsx",
+    "strict": true,
+    "skipLibCheck": true,
+    "noImplicitOverride": true,
+    "lib": ["ESNext", "DOM"],
+    "paths": {"*": ["../packages/*"]},
+    "types": ["hono"]
+  },
+  "include": ["./**/*.ts", "./**/*.tsx"],
+}

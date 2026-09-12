@@ -1,0 +1,18 @@
+{
+  "name": "@spindle/tenet",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host",
+    "deploy": "npm run build && wrangler deploy",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "vitest",
+    "test:run": "vitest run",
+    "check:type": "tsc --noEmit",
+    "cf-typegen": "wrangler types --env-interface CloudflareBindings"
+  },
+  "dependencies": {
+    "@spindle/spindle": "^0.0.0",
+    "hono": "^4.13.7"
+  }
+}

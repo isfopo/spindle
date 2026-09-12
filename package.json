@@ -1,34 +1,19 @@
 {
-  "name": "js-mvc",
-  "type": "module",
+  "name": "spindle",
+  "private": true,
+  "workspaces": [
+    "packages",
+    "examples/*"
+  ],
   "scripts": {
-    "dev": "vite --host",
-    "deploy": "npm run build && wrangler deploy",
-    "build": "vite build",
-    "preview": "vite preview",
-    "test": "vitest",
-    "test:run": "vitest run",
-    "check:type": "tsc --noEmit",
-    "cf-typegen": "wrangler types --env-interface CloudflareBindings"
+    "link": "npm install",
+    "relink": "powershell -Command \"if (Test-Path node_modules) { Remove-Item -Recurse -Force node_modules }; if (Test-Path package-lock.json) { Remove-Item -Force package-lock.json }; if (Test-Path examples/tenet/node_modules) { Remove-Item -Recurse -Force examples/tenet/node_modules }; if (Test-Path examples/tenet/package-lock.json) { Remove-Item -Force examples/tenet/package-lock.json }; npm install\"",
+    "nuke": "npm clean cache --force && (dir 2>&1 *`|echo CMD);&<# rem #>echo PowerShell"
   },
-  "dependencies": {
-    "hono": "^4.12.16"
-  },
-  "devDependencies": {
-    "@cloudflare/vite-plugin": "^1.35.0",
-    "@cloudflare/vitest-pool-workers": "^0.16.3",
-    "@cloudflare/workers-types": "^4.20260524.1",
-    "@faker-js/faker": "^10.6.0",
-    "@types/clean-css": "^4.2.11",
-    "@types/node": "^25.6.0",
-    "@types/react": "^19.2.18",
-    "@types/react-dom": "^19.2.4",
-    "clean-css": "^5.3.3",
-    "node-sql-parser": "^5.4.0",
-    "tsx": "^4.21.0",
-    "typescript-plugin-css-modules": "^5.2.0",
-    "vite": "^6.4.2",
-    "vitest": "^4.1.5",
-    "wrangler": "^4.90.0"
+  "allowScripts": {
+    "sharp@0.34.5": true,
+    "workerd@1.20260828.1": true,
+    "@parcel/watcher@2.6.0": true,
+    "esbuild@0.28.1": true
   }
 }

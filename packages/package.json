@@ -1,0 +1,64 @@
+{
+  "name": "@spindle/spindle",
+  "version": "0.0.0",
+  "private": false,
+  "type": "module",
+  "author": {"name": "Isaac Poole", "email": "isaacpoolemusic@gmail.com" },
+  "scripts": {
+    "dev": "tsdown --watch --sourcemap",
+    "build": "tsdown",
+    "prepack": "tsdown"
+  },
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/fiber/index.d.mts",
+      "import": "./dist/fiber/index.mjs"
+    },
+    "./fiber": {
+      "types": "./dist/fiber/index.d.mts",
+      "import": "./dist/fiber/index.mjs"
+    },
+    "./thread": {
+      "types": "./dist/thread/index.d.mts",
+      "import": "./dist/thread/index.mjs"
+    },
+    "./fabric": {
+      "types": "./dist/fabric/index.d.mts",
+      "import": "./dist/fabric/index.mjs"
+    },
+    "./plugins": {
+      "types": "./dist/plugins/index.d.mts",
+      "import": "./dist/plugins/index.mjs"
+    }
+  },
+  "peerDependencies": {
+    "hono": "^4.12.16",
+    "wrangler": "^4.90.0",
+    "vite": "^6.4.2"
+  },
+  "dependencies": {
+    "@faker-js/faker": "^10.6.0",
+    "clean-css": "^5.3.3",
+    "esbuild": "^0.28.1",
+    "node-sql-parser": "^5.4.0",
+    "tinyglobby": "^0.2.17"
+  },
+  "devDependencies": {
+    "@cloudflare/vite-plugin": "^1.35.0",
+    "@cloudflare/vitest-pool-workers": "^0.16.3",
+    "@cloudflare/workers-types": "^5.0.0",
+    "@types/clean-css": "^4.2.11",
+    "@types/node": "^25.6.0",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.4",
+    "tsdown": "^0.22.14",
+    "tsx": "^4.21.0",
+    "typescript-plugin-css-modules": "^5.2.0",
+    "vite": "^6.4.2",
+    "vitest": "^4.1.5",
+    "wrangler": "^4.90.0"
+  }
+}

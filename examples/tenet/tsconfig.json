@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "jsx": "react-jsx",
+    "jsxImportSource": "hono/jsx",
+    "strict": true,
+    "skipLibCheck": true,
+    "lib": ["ESNext", "DOM"],
+    "types": ["./worker-configuration", "vite/client", "node"],
+    "noImplicitOverride": true,
+    "plugins": [{ "name": "typescript-plugin-css-modules" }],
+    "paths": {
+      "*": ["./src/*"]
+    },
+  },
+  "include": [
+    "src/**/*",
+    "worker-configuration.d.ts",
+  ],
+  "exclude": ["node_modules", "src/.generated"],
+}
