@@ -52,7 +52,7 @@ const schema = defineSchema({
       created_at: col.text().notNull().default("(datetime('now'))"),
     }),
   },
-  indexes: [],
+  indexes: {},
 });
 
 const LOOKUPS = new Map<string, Record<string, unknown>[]>([

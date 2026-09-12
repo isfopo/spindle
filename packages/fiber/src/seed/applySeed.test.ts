@@ -37,7 +37,7 @@ const schema = defineSchema({
       { unique: [["user_id", "post_id"]] },
     ),
   },
-  indexes: [],
+  indexes: {},
 });
 
 /** Drop every non-internal table so each test starts from a clean DB. */

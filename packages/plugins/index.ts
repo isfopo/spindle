@@ -28,6 +28,6 @@ export function spindlePlugin(options: SpindlePluginOptions = {}): Plugin[] {
   ];
 }
 
-export { fiberPlugin, type FiberPluginOptions } from "../fiber/plugins";
-export { fabricPlugin, type FabricPluginOptions } from "../fabric/plugins";
-export { threadPlugin, type ThreadPluginOptions } from "../thread/plugins";
+export { fiberPlugin, type FiberPluginOptions } from "fiber/plugins";
+export { fabricPlugin, type FabricPluginOptions } from "fabric/plugins";
+export { threadPlugin, type ThreadPluginOptions } from "thread/plugins";

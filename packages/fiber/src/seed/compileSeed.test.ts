@@ -37,7 +37,7 @@ const schema = defineSchema({
       { unique: [["user_id", "post_id"]] },
     ),
   },
-  indexes: [],
+  indexes: {},
 });
 
 function makeSpec(users = 8, posts = 5, likes = 14) {
@@ -183,7 +183,7 @@ describe("compileSeed", () => {
           parent_id: col.integer().references("cats", "id"),
         }),
       },
-      indexes: [],
+      indexes: {},
     });
     const out = compileSeed(defineSeed(s, { cats: generate(6) }));
     const rows = out.tables.find((t) => t.name === "cats")!.rows;
@@ -217,7 +217,7 @@ describe("compileSeed", () => {
           { unique: [["a", "b"]] },
         ),
       },
-      indexes: [],
+      indexes: {},
     });
     // A 2x2 pick space has at most 4 distinct (a, b) pairs — 10 rows are
     // unsatisfiable. The compiler must throw instead of retrying forever.
@@ -247,7 +247,7 @@ describe("compileSeed", () => {
           score: col.integer().between(1, 10).notNull(),
         }),
       },
-      indexes: [],
+      indexes: {},
     });
     const out = compileSeed(defineSeed(s, { events: generate(30) }));
     const rows = out.tables.find((t) => t.name === "events")!.rows;
@@ -271,7 +271,7 @@ describe("compileSeed", () => {
         }),
         widget_statuses: table({ key: col.text().primaryKey() }),
       },
-      indexes: [],
+      indexes: {},
     });
     const out = compileSeed(
       defineSeed(s, {

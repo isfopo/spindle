@@ -1,11 +1,8 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { Get, Post, ControllerBase } from "./ControllerBase";
-import { Validate } from "../validation/decorators";
-import { GUARDS_KEY } from "../validation";
-import type { IValidatable, ValidationResult } from "../validation/decorators";
 import { Hono } from "hono";
 import type { Context, Env } from "hono";
 import { testClient } from "hono/testing";
+import { Post, ControllerBase, Validate, IValidatable, ValidationResult, GUARDS_KEY } from "thread";
 
 // ── Test request class ──────────────────────────────────────────────
 
