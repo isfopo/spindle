@@ -9,7 +9,8 @@
     "skipLibCheck": true,
     "noImplicitOverride": true,
     "lib": ["ESNext", "DOM"],
-    "paths": {"*": ["../packages/*"]}
+    "paths": {"*": ["../packages/*"]},
+    "types": ["hono"]
   },
   "include": ["./**/*.ts", "./**/*.tsx"],
 }

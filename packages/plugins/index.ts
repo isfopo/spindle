@@ -1,26 +1,33 @@
+import type { Plugin } from "vite";
+import { fabricPlugin, FabricPluginOptions } from "fabric/plugins";
+import { fiberPlugin, FiberPluginOptions } from "fiber/plugins";
+import { ThreadPluginOptions, threadPlugin } from "thread/plugins";
+
+/** Options for the unified `spindlePlugin`, grouped by branch. */
+export interface SpindlePluginOptions {
+  /** Data-layer generation: schema, seed, and stored-query compilation. */
+  fiber?: FiberPluginOptions;
+  /** Asset + client layer: CSS bundling and client handler registration. */
+  fabric?: FabricPluginOptions;
+  /** Client-side TypeScript bundling (esbuild). */
+  thread?: ThreadPluginOptions;
+}
+
 /**
- * Build-time Vite plugins — kept separate from the runtime entries (fiber,
- * thread, fabric) so consuming apps can import runtime code without dragging
- * Node-only plugin code (fs, clean-css, esbuild) into worker or client bundles.
+ * Unified Vite plugin for all three branches.
  *
- *   spindlePlugin(options) → all three branches in one call (Plugin[])
- *   fiberPlugin(options)   → schema, seed, and stored-query compilation
- *   fabricPlugin(options)  → CSS bundling and client handler registration
- *   threadPlugin(options)  → client-side TypeScript bundling
+ * Returns the composed plugin array, so it slots into `plugins: [spindlePlugin(...)]`
+ * directly. Each branch plugin (`fiberPlugin`, `fabricPlugin`, `threadPlugin`)
+ * remains usable individually.
  */
-export {
-  spindlePlugin,
-  type SpindlePluginOptions,
-} from "./spindle-plugin";
-export {
-  fiberPlugin,
-  type FiberPluginOptions,
-} from "../fiber/plugins/fiber-plugin";
-export {
-  fabricPlugin,
-  type FabricPluginOptions,
-} from "../fabric/plugins/fabric-plugin";
-export {
-  threadPlugin,
-  type ThreadPluginOptions,
-} from "../thread/plugins/thread-plugin";
+export function spindlePlugin(options: SpindlePluginOptions = {}): Plugin[] {
+  return [
+    fiberPlugin(options.fiber),
+    fabricPlugin(options.fabric),
+    threadPlugin(options.thread),
+  ];
+}
+
+export { fiberPlugin, type FiberPluginOptions } from "../fiber/plugins";
+export { fabricPlugin, type FabricPluginOptions } from "../fabric/plugins";
+export { threadPlugin, type ThreadPluginOptions } from "../thread/plugins";
