@@ -154,7 +154,12 @@ async function loadLookupRows(
 ): Promise<Map<string, Record<string, unknown>[]>> {
   const lookups = new Map<string, Record<string, unknown>[]>();
   try {
-    const seed = await loadSeedSpec(paths.projectRoot, paths.seedPath);
+    const seed = await loadSeedSpec(
+      paths.projectRoot,
+      paths.seedPath,
+      paths.generatedSchemaPath,
+      paths.schemaPath,
+    );
     for (const [table, spec] of Object.entries(seed.tables)) {
       if ("rows" in spec) lookups.set(table, spec.rows);
     }
