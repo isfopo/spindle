@@ -242,18 +242,16 @@ export abstract class ControllerBase<T extends Env> {
       c.setRenderer((content: Child) => {
         const doctype = "<!DOCTYPE html>";
         const Layout = this.renderConfig?.layout
-        const script = `<script>alert("hello world")</script>`
 
-        if (!Layout) {
-          return c.html(doctype + renderToString(content));
-        }
+        if (!Layout) return c.html(doctype + renderToString(content));
 
         const body = renderToString(
           <Layout {...c.var} currentPath={c.req.path}>
             {content}
           </Layout>,
         );
-        return c.html(doctype + body + script);
+
+        return c.html(doctype + body);
       });
       await next();
     });
