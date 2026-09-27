@@ -1,3 +1,5 @@
+export { startDefaults, type ClientDefaults } from "./defaults";
+
 export {
   useDisable,
   type DisableOptions,

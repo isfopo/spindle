@@ -30,6 +30,8 @@ export interface FabricPluginOptions {
   css?: CssOptions;
   /** Client handler registration options. */
   handlers?: HandlersOptions;
+  /** Framework-provided client behaviors to disable by name. */
+  defaults?: Record<string, boolean>;
 }
 
 export function fabricPlugin(options: FabricPluginOptions = {}): Plugin {
@@ -64,7 +66,11 @@ export function fabricPlugin(options: FabricPluginOptions = {}): Plugin {
 
     configResolved(config) {
       cssPaths = resolveCssPaths(config.root, options.css);
-      handlerPaths = resolveHandlersPaths(config.root, options.handlers);
+      handlerPaths = resolveHandlersPaths(
+        config.root,
+        options.handlers,
+        options.defaults,
+      );
     },
 
     async buildStart() {
@@ -88,8 +94,8 @@ export function fabricPlugin(options: FabricPluginOptions = {}): Plugin {
           );
           if (
             (file.endsWith(".css") ||
-            file.endsWith(".module.css") ||
-            file.endsWith(".svg")) &&
+              file.endsWith(".module.css") ||
+              file.endsWith(".svg")) &&
             !isExcluded &&
             isInSourceDir &&
             !isBuilding

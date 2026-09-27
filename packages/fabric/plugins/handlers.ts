@@ -65,11 +65,13 @@ export interface ResolvedHandlersPaths {
   outfile: string;
   entryOutfile: string;
   header: string[];
+  defaults: Record<string, boolean>;
 }
 
 export function resolveHandlersPaths(
   projectRoot: string,
   options: HandlersOptions = {},
+  defaults: Record<string, boolean> = {},
 ): ResolvedHandlersPaths {
   const toAbsolute = (p: string | undefined, fallback: string) =>
     p && p.startsWith("/") ? p : resolve(projectRoot, p ?? fallback);
@@ -92,6 +94,7 @@ export function resolveHandlersPaths(
       "src/.generated/client-entry.ts",
     ),
     header: options.header ?? [],
+    defaults,
   };
 }
 
@@ -145,7 +148,7 @@ function generateModule(paths: ResolvedHandlersPaths, files: string[]): string {
     lines.push("for (const mod of [");
     files.forEach((_, index) => lines.push(`  H${index},`));
     lines.push("]) {");
-    lines.push('  for (const key of Object.keys(mod)) {');
+    lines.push("  for (const key of Object.keys(mod)) {");
     lines.push('    if (key.endsWith("Handler")) {');
     lines.push("      register((mod as any)[key]);");
     lines.push("    }");
@@ -177,8 +180,11 @@ function generateClientEntry(paths: ResolvedHandlersPaths): string {
     lines.push(`// ${line}`);
   }
   lines.push("");
-  lines.push('import { hydrate, hydrateEvent } from "spindlework/fabric";');
+  lines.push(
+    'import { hydrate, hydrateEvent, startDefaults } from "spindlework/fabric";',
+  );
   lines.push(`import ${JSON.stringify(rel)};`);
+  lines.push(`startDefaults(${JSON.stringify(paths.defaults)});`);
   lines.push("");
   lines.push("export { hydrate, hydrateEvent };");
   lines.push("");
@@ -194,11 +200,7 @@ export function writeHandlerModules(
   writeFileSync(paths.outfile, generateModule(paths, files), "utf-8");
 
   mkdirSync(dirname(paths.entryOutfile), { recursive: true });
-  writeFileSync(
-    paths.entryOutfile,
-    generateClientEntry(paths),
-    "utf-8",
-  );
+  writeFileSync(paths.entryOutfile, generateClientEntry(paths), "utf-8");
 
   console.log(
     `🔌 Registered ${files.length} client handler${files.length === 1 ? "" : "s"}`,
@@ -225,7 +227,10 @@ export function includeRoots(paths: ResolvedHandlersPaths): string[] {
 }
 
 /** True if `file` (absolute) is governed by the include globs. */
-export function isUnderInclude(paths: ResolvedHandlersPaths, file: string): boolean {
+export function isUnderInclude(
+  paths: ResolvedHandlersPaths,
+  file: string,
+): boolean {
   const norm = file.replace(/\\/g, "/");
   return includeRoots(paths).some((abs) => norm.startsWith(abs));
 }
